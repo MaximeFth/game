@@ -2,6 +2,7 @@ import processing.video.*;
 float scale = 1;
 float angleX = 0;
 float angleY = 0;
+float PiRadian = 180;
 
 public float score = 0;
 public float maxScore = 50; 
@@ -52,14 +53,14 @@ float depth = 2000;
 
 void settings() {
 
-  size(1440, 900);
-  fullScreen(P3D);
+  size(1440, 900,P3D);
+  
 }
 void setup() {
 
   cam2 = new Movie(this, "testvideo.avi"); //Put the video in the same directory
     cam2.loop();
-
+  //image(cam2, 500,500);
   imgproc = new ImageProcessing();
 
   String []args = {"Image processing window"};
@@ -148,8 +149,8 @@ void drawGame() {
 
   //plate
   gameSurface.translate(width/2, height/2, 0);
-  System.out.println(imgproc.rotations.x);
-
+ // System.out.println(imgproc.rotations.x);
+if(!shiftMode){
   if (imgproc.rotations.x<=PI/3 && imgproc.rotations.x >= -PI/3) {
     rx= imgproc.rotations.x;
   } else {
@@ -166,9 +167,12 @@ void drawGame() {
     rz=max(-PI/3, rz);
     
   }
+}
+  System.out.println("x2 = "+rx + " ; z2 = "+rz);
   gameSurface.rotateZ(rz);
   gameSurface.rotateX(rx);
-  gameSurface.fill(255, 80);
+
+  gameSurface.fill(255);
   gameSurface.box(plateSquareLength, plateSquareheight, plateSquareLength);
 
   //sphere

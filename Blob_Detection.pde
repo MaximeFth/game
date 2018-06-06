@@ -4,7 +4,7 @@ import java.util.TreeSet;
 import java.awt.Color;
 import java.util.Hashtable;
 
-class BlobDetection {
+class Blob_Detection {
 
   List<Color> colors=new ArrayList<Color>();
 

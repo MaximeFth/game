@@ -7,6 +7,7 @@ class Sphere {
   final float sphereSize = 23;
   final float coefWall = 0.9;
   final color colorBall = color(246, 100, 87);
+  final float delta = 0.1;
 
   Sphere() {
     location = new PVector(0, -(sphereSize + plateSquareheight/2), 0); // on top of the center of the plate
@@ -69,18 +70,22 @@ class Sphere {
 
   void checkEdges() {
     if (location.x < -plateSquareLength / 2 + sphereSize) {
+      location.x = -plateSquareLength/2 + sphereSize + delta;
       velocity.x = abs(velocity.x) * (coefWall);
       score=score- ratioScoreVelocity*mag(velocity.x, velocity.y);
     }
     if (location.x > plateSquareLength / 2 - sphereSize) {
+       location.x = plateSquareLength/2 - sphereSize - delta;
       velocity.x = abs(velocity.x) * (-coefWall);
       score=score- ratioScoreVelocity*mag(velocity.x, velocity.y);
     }
     if (location.z < -plateSquareLength / 2 + sphereSize) {
+       location.z = -plateSquareLength/2 + sphereSize + delta;
       velocity.z = abs(velocity.z) * (coefWall);
       score=score- ratioScoreVelocity*mag(velocity.x, velocity.y);
     }
     if (location.z > plateSquareLength / 2 - sphereSize) {
+     location.z = plateSquareLength/2 - sphereSize - delta;
       velocity.z = abs(velocity.z) * (-coefWall);
       score=score- ratioScoreVelocity*mag(velocity.x, velocity.y);
     }
