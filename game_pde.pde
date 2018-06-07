@@ -147,7 +147,7 @@ void drawGame() {
 
 
   //plate
-  gameSurface.translate(width/2, height/2, 0);
+  gameSurface.translate(width/2, height/2-100, 0);
 if(!shiftMode){
   if (imgproc.rotations.x<=PI/3 && imgproc.rotations.x >= -PI/3) {
     rx= imgproc.rotations.x;
