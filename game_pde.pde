@@ -5,7 +5,7 @@ float angleY = 0;
 float PiRadian = 180;
 
 public float score = 0;
-public float maxScore = 50; 
+public float maxScore = 5000; 
 public float lastScore = 0;
 public Movie cam2;
 PGraphics gameSurface;
@@ -60,7 +60,7 @@ void setup() {
 
   cam2 = new Movie(this, "testvideo.avi"); //Put the video in the same directory
     cam2.loop();
-  //image(cam2, 500,500);
+
   imgproc = new ImageProcessing();
 
   String []args = {"Image processing window"};
@@ -113,7 +113,6 @@ void drawScoreBoard() {
   scoreBoard.fill(0);
   scoreBoard.text("Total score: \n   "+ nfc(score, 3) +"   \n velocity: \n   "+ nfc(mag(sphere.velocity.x, sphere.velocity.z), 3) + "\n last score: \n   "+ nfc(lastScore, 3), 10, 20);
   scoreBoard.fill(250, 234, 115);
-
   scoreBoard.endDraw();
 }
 
@@ -149,7 +148,6 @@ void drawGame() {
 
   //plate
   gameSurface.translate(width/2, height/2, 0);
- // System.out.println(imgproc.rotations.x);
 if(!shiftMode){
   if (imgproc.rotations.x<=PI/3 && imgproc.rotations.x >= -PI/3) {
     rx= imgproc.rotations.x;
@@ -168,7 +166,6 @@ if(!shiftMode){
     
   }
 }
-  System.out.println("x2 = "+rx + " ; z2 = "+rz);
   gameSurface.rotateZ(rz);
   gameSurface.rotateX(rx);
 

@@ -76,10 +76,7 @@ class ImageProcessing extends PApplet {
 
     rotations= twoDthreeD.get3DRotations(temp);
 
-    
-    //rotations.x=degrees(rotations.x);
-    //rotations.z=degrees(rotations.z);
-System.out.println("X = "+rotations.x + "; Z = "+rotations.z);
+
 
 
 
