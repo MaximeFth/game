@@ -3,7 +3,7 @@ float scale = 1;
 float angleX = 0;
 float angleY = 0;
 float PiRadian = 180;
-
+float plateTranslateY=100;
 public float score = 0;
 public float maxScore = 5000; 
 public float lastScore = 0;
@@ -154,7 +154,7 @@ void drawGame() {
 
 
   //plate
-  gameSurface.translate(width/2, height/2-100, 0);
+  gameSurface.translate(width/2, height/2-plateTranslateY, 0);
   if (!shiftMode) {
     if (imgproc.rotations.x<=PI/3 && imgproc.rotations.x >= -PI/3) {
       rx= imgproc.rotations.x;
@@ -262,7 +262,7 @@ void mouseDragged() {
 void mouseClicked() {
   if (shiftMode==true) {
     float posX = mouseX - width/2;
-    float posY = mouseY - height/2;
+    float posY = mouseY - height/2+plateTranslateY;
     double border = plateSquareLength/2;
     if (posX > -border && posX < border && posY > -border && posY < border ) {  //check if on the plate       
       Cylinder  c = new Cylinder(new PVector(posX, 0, posY));

@@ -12,7 +12,7 @@ class QuadGraph {
 
   List<PVector> findBestQuad(List<PVector> lines, int width, int height, int max_quad_area, int min_quad_area, boolean verbose) {
     this.verbose=verbose;
-    build(lines, width, height); //<>//
+    build(lines, width, height);
     findCycles(verbose);
     ArrayList<PVector> bestQuad=new ArrayList<PVector>();
     float bestQuadArea=0;
