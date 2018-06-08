@@ -7,7 +7,7 @@ float PiRadian = 180;
 public float score = 0;
 public float maxScore = 5000; 
 public float lastScore = 0;
-public Movie cam2;
+public Movie vid;
 PGraphics gameSurface;
 final int spaceBetweenBlocks = 50;
 
@@ -45,7 +45,7 @@ final Sphere sphere = new Sphere();
 
 public ArrayList<Cylinder> cylinder = new ArrayList<Cylinder>();
 public ArrayList<PVector> coordCylinder = new ArrayList<PVector>();
-PImage bg;
+
 
 float depth = 2000;
 
@@ -53,13 +53,14 @@ float depth = 2000;
 
 void settings() {
 
-  size(1440, 900,P3D);
-  
+  size(1440, 900, P3D);
 }
-void setup() {
+//-------------------------------------------------------------------------------------------
 
-  cam2 = new Movie(this, "testvideo.avi"); //Put the video in the same directory
-    cam2.loop();
+void setup() {
+  frameRate(30);
+  vid = new Movie(this, "testvideo.avi"); //Put the video in the same directory
+  vid.loop();
 
   imgproc = new ImageProcessing();
 
@@ -74,11 +75,14 @@ void setup() {
   barChart = createGraphics(barChartWidth, barChartHeight, P2D);
   hs = new HScrollbar(topViewLength + 3 * spaceBetweenBlocks + scoreBoardWidth, height - dataVisualizationLength + spaceBetweenBlocks + scoreBoardHeight - 20, hsWidth, hsHeight);
 }
+//-------------------------------------------------------------------------------------------
+
 void drawdataVisualization() {
   dataVisualization.beginDraw();
   dataVisualization.background(250, 234, 115);
   dataVisualization.endDraw();
 }
+//-------------------------------------------------------------------------------------------
 
 void drawTopView() {
 
@@ -102,6 +106,7 @@ void drawTopView() {
   }
   topView.endDraw();
 }
+//-------------------------------------------------------------------------------------------
 
 void drawScoreBoard() {
 
@@ -115,6 +120,7 @@ void drawScoreBoard() {
   scoreBoard.fill(250, 234, 115);
   scoreBoard.endDraw();
 }
+//-------------------------------------------------------------------------------------------
 
 void drawBarChart() {
   barChart.beginDraw();
@@ -138,6 +144,7 @@ void drawBarChart() {
 
   barChart.endDraw();
 }
+//-------------------------------------------------------------------------------------------
 
 void drawGame() {
   gameSurface.beginDraw();
@@ -148,24 +155,22 @@ void drawGame() {
 
   //plate
   gameSurface.translate(width/2, height/2-100, 0);
-if(!shiftMode){
-  if (imgproc.rotations.x<=PI/3 && imgproc.rotations.x >= -PI/3) {
-    rx= imgproc.rotations.x;
-  } else {
-    
-    rx=min(PI/3, imgproc.rotations.x);
-    rx=max(-PI/3, rx);
-    
+  if (!shiftMode) {
+    if (imgproc.rotations.x<=PI/3 && imgproc.rotations.x >= -PI/3) {
+      rx= imgproc.rotations.x;
+    } else {
+
+      rx=min(PI/3, imgproc.rotations.x);
+      rx=max(-PI/3, rx);
+    }
+    if (imgproc.rotations.z<=PI/3 && imgproc.rotations.z >= -PI/3) {
+      rz= imgproc.rotations.z;
+    } else {
+
+      rz=min(PI/3, imgproc.rotations.z);
+      rz=max(-PI/3, rz);
+    }
   }
-  if (imgproc.rotations.z<=PI/3 && imgproc.rotations.z >= -PI/3) {
-    rz= imgproc.rotations.z;
-  } else {
-    
-    rz=min(PI/3, imgproc.rotations.z);
-    rz=max(-PI/3, rz);
-    
-  }
-}
   gameSurface.rotateZ(rz);
   gameSurface.rotateX(rx);
 
@@ -190,21 +195,22 @@ if(!shiftMode){
   gameSurface.popMatrix();
   gameSurface.endDraw();
 }
+//-------------------------------------------------------------------------------------------
 
 void draw() {
-  if (cam2.available() == true) {
-      cam2.read();
-    }
-    
+  if (vid.available() == true) {
+    vid.read();
+  }
 
- 
+
+
   drawScoreBoard();
   drawBarChart();
   drawGame();
   drawTopView();
   drawdataVisualization();
 
-   image(gameSurface, 0, 0);
+  image(gameSurface, 0, 0);
   image(dataVisualization, 0, height - dataVisualizationLength);
 
   image(topView, spaceBetweenBlocks, height - dataVisualizationLength + spaceBetweenBlocks);
@@ -301,7 +307,6 @@ void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   if (e < 0 && ratio - 0.1 > 0.4) ratio -= 0.1;
   if (e > 0 && ratio + 0.1 < 1.2 ) ratio += 0.1;
-
 }
 
 //-------------------------------------------------------------------------------------------

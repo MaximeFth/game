@@ -8,14 +8,14 @@ class ImageProcessing extends PApplet {
   TwoDThreeD twoDthreeD;
 
   PImage img1;
-  int camW=650;
-  int camH=550;
+  int camW=400;
+  int camH=400;
   PImage houghImg;
 
-  int minVotes = 130;
-  int round=10;
+  int minVotes = 140;
+  int round=12;
   public PVector rotations=new PVector(0, 0, 0);
-  int nlines=6;
+  int nlines=5;
   OpenCV opencv;
   List<PVector> bestQuads=new ArrayList();
 
@@ -28,12 +28,12 @@ class ImageProcessing extends PApplet {
   void setup() {
 
 
-
+  frameRate(30);
 
 
 
     opencv = new OpenCV(this, 100, 100);
-    twoDthreeD=new TwoDThreeD(camW, camH, 5);
+    twoDthreeD=new TwoDThreeD(camW, camH, 25);
   }
 
 
@@ -41,8 +41,8 @@ class ImageProcessing extends PApplet {
   //------------------------------------------------------------------------------
   void draw() {
 
-    img1=cam2.get();
-
+    img1=vid.get();
+    img1.resize(400 ,400);
     image(img1, 0, 0);
     PImage img2=img1.copy();
     PImage blob=img1.copy();
@@ -50,7 +50,7 @@ class ImageProcessing extends PApplet {
     //IMAGE DE GAUCHE ---------------------------------------------------------------
 
     // Hue/Brightness/Saturation thresholding:
-    img2 = thresholdHSB(img2, 59, 140, 52, 255, 20, 186);
+    img2 = thresholdHSB(img2, 52, 164, 38, 255, 40, 255);
 
     // blob detection:
     BlobDetection b = new BlobDetection();
@@ -101,7 +101,7 @@ class ImageProcessing extends PApplet {
   void plotLines(List<PVector> lines, PImage edgeImg) {
 
     QuadGraph Q = new QuadGraph();
-    bestQuads=Q.findBestQuad(lines, edgeImg.width, edgeImg.height, edgeImg.width*edgeImg.height, edgeImg.width*edgeImg.height/10, false);  //jijijijijjijijjijijijijdiajfiajfiajfiajfidjasfiajifdjsaifjasijfdiasjfidasjfiasjfiajfiajfiajidsjfiajfdiasjfiasjdfiajidfjasifjaisfjaisjfiasjfiasjfsaisf
+    bestQuads=Q.findBestQuad(lines, edgeImg.width, edgeImg.height, edgeImg.width*edgeImg.height, edgeImg.width*edgeImg.height/4, false);  //jijijijijjijijjijijijijdiajfiajfiajfiajfidjasfiajifdjsaifjasijfdiasjfidasjfiasjfiajfiajfiajidsjfiajfdiasjfiasjdfiajidfjasifjaisfjaisjfiasjfiasjfsaisf
     for (int j=0; j<bestQuads.size(); ++j) {
       fill(color((int)(255*random(0, 1)), (int)(255*random(0, 1)), (int)(255*random(0, 1))), 80);
       ellipse(bestQuads.get(j).x, bestQuads.get(j).y, 55, 55);
