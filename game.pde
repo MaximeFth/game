@@ -5,7 +5,7 @@ float angleY = 0;
 float PiRadian = 180;
 float plateTranslateY=100;
 public float score = 0;
-public float maxScore = 5000; 
+public float maxScore = 100; 
 public float lastScore = 0;
 public Movie vid;
 PGraphics gameSurface;
